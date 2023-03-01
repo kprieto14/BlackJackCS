@@ -12,13 +12,9 @@ namespace BlackJackCS
     }
   class Program
   {
-    static void Main(string[] args)
+    static void BlackJack()
     {
-      Console.WriteLine();
-      Console.WriteLine("Welcome to the game of Blackjack! I will be your dealer. Lets shuffle the cards and begin!");
-      Console.WriteLine();
-    
-      //Creates the deck that assigns a Suit, face, value to each 52 cards. 
+           //Creates the deck that assigns a Suit, face, value to each 52 cards. 
       var deck = new List<Card>()
       {
         new Card()
@@ -546,10 +542,36 @@ namespace BlackJackCS
       {
         Console.WriteLine("Something went wrong, please contact Kristy to fix code.");
       }
+    }
+    static void Main(string[] args)
+    {
+      Console.WriteLine();
+      Console.WriteLine("Welcome to the game of Blackjack! I will be your dealer. Lets shuffle the cards and begin!");
+      Console.WriteLine();
+    
+      BlackJack();
 
-      /*
+      bool playAgain = true;
+      while (playAgain == true)
+      {
+        //Once game finishes, this is block of code that asks user if they would like to replay and adjusts accordingly.
+        Console.WriteLine("Would you like to play again? Enter YES to restart or NO to quit.");
+        var response = Console.ReadLine();
 
-      */ 
+        if (response.ToUpper() == "YES")
+        {
+          BlackJack();
+        }
+        else if (response.ToUpper() == "NO")
+        {
+          Console.Write("It was fun to play with you! Come back anytime! 😃");
+          playAgain = false;
+        }
+        else 
+        {
+          Console.WriteLine("I'm sorry, I do not understand 😔 Please Try again.");
+        }
+      }
 
     }
   }
