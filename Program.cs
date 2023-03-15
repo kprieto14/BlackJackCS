@@ -553,7 +553,7 @@ namespace BlackJackCS
         
         var newPlayerTotal = splitHand.Select(sum => sum.Value).Sum();
         //Code here to turns an Ace into a 1 if it reaches over a total value of 21
-       var activeAces = splitHand.Any(ace => ace.Suit == "Ace");
+       var activeAces = splitHand.Any(ace => ace.Suit == "Ace" && ace.Value == 11);
         if (newPlayerTotal > 21 && activeAces == true)
         {
           //Goes through the list and turns the first Ace into a 1 if value goes over 21, will change the following Aces if the value keeps going up
@@ -632,7 +632,7 @@ namespace BlackJackCS
         
         var newPlayerTotal = playerHand.Select(sum => sum.Value).Sum();
         //Code here to turns an Ace into a 1 if it reaches over a total value of 21, only activates if there is an Ace in the deck
-        var activeAces = playerHand.Any(ace => ace.Suit == "Ace");
+        var activeAces = playerHand.Any(ace => ace.Suit == "Ace" && ace.Value == 11);
         if (newPlayerTotal > 21 && activeAces == true)
         {
           //Goes through the list and turns the first Ace into a 1 if value goes over 21, will change the following Aces if the value keeps going up
@@ -693,6 +693,15 @@ namespace BlackJackCS
       while (dealerTurn == true)
       {
         var newDealerTotal = dealerHand.Select(sum => sum.Value).Sum();
+        //Code here to turns an Ace into a 1 if it reaches over a total value of 21
+       var activeAces = dealerHand.Any(ace => ace.Suit == "Ace" && ace.Value == 11);
+        if (newDealerTotal > 21 && activeAces == true)
+        {
+          //Goes through the list and turns the first Ace into a 1 if value goes over 21, will change the following Aces if the value keeps going up
+          var foundAces = dealerHand.FirstOrDefault(ace => ace.Suit == "Ace" && ace.Value == 11);
+          foundAces.Value = 1;
+          newDealerTotal = dealerHand.Select(sum => sum.Value).Sum();
+        }
 
         //Code to display all of the dealer's current cards
         Console.Write("The dealer currently has the");
