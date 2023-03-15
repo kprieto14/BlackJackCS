@@ -95,7 +95,7 @@ namespace BlackJackCS
     }
     static void BlackJack()
     {
-           //Creates the deck that assigns a Suit, face, value to each 52 cards. 
+      //Creates the deck that assigns a Suit, face, value to each 52 cards. 
       var deck = new List<Card>()
       {
         new Card()
@@ -533,13 +533,13 @@ namespace BlackJackCS
       //Process that starts the split hand scenario if true
       while (playSplitHand == true)
       {
-
         //Displays all cards in deck and tells you their total value at the end
         Console.Write("Your split hand currently has the");
         for(var count = 0; count <= splitHand.Count() - 1; count ++)
         {
           var currentHand = splitHand[count];
 
+          //LOOK INTO JOIN FUNCTION ON STRINGS
           if (count < splitHand.Count() -1)
           {
           Console.Write($" {currentHand.Suit} of {currentHand.Face},");
@@ -553,12 +553,14 @@ namespace BlackJackCS
         
         var newPlayerTotal = splitHand.Select(sum => sum.Value).Sum();
         //Code here to turns an Ace into a 1 if it reaches over a total value of 21
-        if (newPlayerTotal > 21)
+       var activeAces = splitHand.Any(ace => ace.Suit == "Ace");
+        if (newPlayerTotal > 21 && activeAces == true)
         {
-          var newAceValue = splitHand.Where(ace => ace.Suit == "Ace");
-
-          Console.WriteLine(newAceValue);
-        } 
+          //Goes through the list and turns the first Ace into a 1 if value goes over 21, will change the following Aces if the value keeps going up
+          var foundAces = splitHand.FirstOrDefault(ace => ace.Suit == "Ace" && ace.Value == 11);
+          foundAces.Value = 1;
+          newPlayerTotal = splitHand.Select(sum => sum.Value).Sum();
+        }
         Console.WriteLine($"Your total value is {newPlayerTotal}.");
         Console.WriteLine();
        
@@ -592,14 +594,14 @@ namespace BlackJackCS
         {
           Console.WriteLine("Congrats on the perfect 21! Let's see what your other hand has.");
           Console.WriteLine();
-          playSplitHand = true; 
+          playSplitHand = false; 
         }
         else if(newPlayerTotal > 21)
         {
           Console.Write("💣💣💣");
           Console.WriteLine(" Uh oh, looks like a bust! Lets hope your other hand has better luck!");
           Console.WriteLine();
-          playSplitHand = true; 
+          playSplitHand = false; 
         }
         else
         {
@@ -629,6 +631,15 @@ namespace BlackJackCS
         Console.WriteLine(" in your hand.");
         
         var newPlayerTotal = playerHand.Select(sum => sum.Value).Sum();
+        //Code here to turns an Ace into a 1 if it reaches over a total value of 21, only activates if there is an Ace in the deck
+        var activeAces = playerHand.Any(ace => ace.Suit == "Ace");
+        if (newPlayerTotal > 21 && activeAces == true)
+        {
+          //Goes through the list and turns the first Ace into a 1 if value goes over 21, will change the following Aces if the value keeps going up
+          var foundAces = playerHand.FirstOrDefault(ace => ace.Suit == "Ace" && ace.Value == 11);
+          foundAces.Value = 1;
+          newPlayerTotal = playerHand.Select(sum => sum.Value).Sum();
+        } 
         Console.WriteLine($"Your total value is {newPlayerTotal}.");
         Console.WriteLine();
        
