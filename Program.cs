@@ -4,466 +4,92 @@ using System.Collections.Generic;
 
 namespace BlackJackCS
 {
-  class Card 
-    {
-      public string Face {get; set;}
-      public string Suit {get; set;}
-      public int Value {get; set;}
-    }
   class Program
   {
     static string VictorySpeech(double user, double dealer, double split)
     {
-      var playerTotal = user;
-      var dealerTotal = dealer;
-      var splitTotal = split;
-
       //Major IF statement for the split hand if used 
-      if (splitTotal > dealerTotal && splitTotal <= 21)
+      if (split > dealer && split <= 21)
       {
         //Gain money
-        Console.WriteLine("Looks like the split paid off! Congrats player!");
-        Console.WriteLine();
+        Console.WriteLine("Looks like the split paid off! Congrats player! \n");
       }
-      else if (splitTotal < dealerTotal && dealerTotal <= 21 && splitTotal > 0)
+      else if (split < dealer && dealer <= 21 && split > 0)
       {
         //Lose money
-        Console.WriteLine("Don't know if splitting your hand helped. Congrats dealer!");
-        Console.WriteLine();
+        Console.WriteLine("Don't know if splitting your hand helped. Congrats dealer! \n");
       }
-      else if (splitTotal == dealerTotal && dealerTotal <= 21)
+      else if (split == dealer && dealer <= 21)
       {
         //In this scenario, nobody wins. You do not lose any money, but you also do not gain any money
-        Console.WriteLine("Looks like nobody wins this time, not even your split hand.");
-        Console.WriteLine();
+        Console.WriteLine("Looks like nobody wins this time, not even your split hand. \n");
       }
-      else if (splitTotal > 21)
+      else if (split > 21)
       {
         //Lose money
-         Console.WriteLine("Don't know if splitting your hand helped. Congrats dealer!");
-         Console.WriteLine();
+         Console.WriteLine("Don't know if splitting your hand helped. Congrats dealer! \n");
       }
-      else if (splitTotal < dealerTotal && dealerTotal > 21 && splitTotal > 0)
+      else if (split < dealer && dealer > 21 && split > 0)
       {
         //Gain money
-        Console.WriteLine("Looks like the split paid off! Congrats player!");
-        Console.WriteLine();
+        Console.WriteLine("Looks like the split paid off! Congrats player! \n");
       }
 
       //Major IF statement for the player's main hand
-      if (playerTotal > dealerTotal && playerTotal <= 21)
+      if (user > dealer && user <= 21)
       {
         //Gain money
-        Console.WriteLine("Congrats player!");
-        Console.WriteLine();
-        return null;
+        return "Congrats player! \n";
       }
-      else if (playerTotal < dealerTotal && dealerTotal <= 21)
+      else if (user < dealer && dealer <= 21)
       {
         //Lose money
-        Console.WriteLine("Congrats dealer!");
-        Console.WriteLine();
-        return null;
+        return "Congrats dealer!\n";
       }
-      else if (playerTotal == dealerTotal && dealerTotal <= 21)
+      else if (user == dealer && dealer <= 21)
       {
         //In this scenario, nobody wins. You do not lose any money, but you also do not gain any money
-        Console.WriteLine("Looks like nobody wins this time. Keep your money.");
-        Console.WriteLine();
-        return null;
+        return "Looks like nobody wins this time. Keep your money. \n";
       }
-      else if (playerTotal > 21)
+      else if (user > 21)
       {
         //Lose money
-         Console.WriteLine("Congrats dealer!");
-         Console.WriteLine();
-         return null;
+         return "Congrats dealer! \n";
       }
-      else if (playerTotal < dealerTotal && dealerTotal > 21)
+      else if (user < dealer && dealer > 21)
       {
         //Gain money
-        Console.WriteLine("Congrats player!");
-        Console.WriteLine();
-        return null;
+        return "Congrats player! \n";
       }
       else
       {
-        Console.WriteLine("Something went wrong, please contact Kristy to fix code.");
-        Console.WriteLine();
-        return null;
+        return "Something went wrong, please contact Kristy to fix code. \n";
       }
     }
     static void BlackJack()
     {
       //Creates the deck that assigns a Suit, face, value to each 52 cards. 
-      var deck = new List<Card>()
+      var suit = new List<string>() { "Hearts", "Clubs", "Diamonds", "Spades" };
+      var face = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+      var value = new List<int>() { 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11 };
+
+      var index = 0;
+
+      var deck = new List<Card>();
+
+      foreach (var currentSuit in suit)
       {
-        new Card()
+          foreach (var currentRank in face)
           {
-            Face = "Clubs",
-            Suit = "Ace",
-            Value = 11
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "2",
-            Value = 2
-          }, 
-
-        new Card()
-         {
-           Face = "Clubs",
-            Suit = "3",
-            Value = 3
-          },
-
-        new Card()
-         {
-           Face = "Clubs",
-           Suit = "4",
-           Value = 4
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "5",
-            Value = 5
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "6",
-            Value = 6
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "7",
-            Value = 7
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "8",
-            Value = 8
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "9",
-            Value = 9
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "10",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "Jack",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "Queen",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Clubs",
-            Suit = "King",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "Ace",
-            Value = 11
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "2",
-            Value = 2
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "3",
-            Value = 3
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "4",
-            Value = 4
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "5",
-            Value = 5
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "6",
-            Value = 6
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "7",
-            Value = 7
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "8",
-            Value = 8
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "9",
-            Value = 9
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "10",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "Jack",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "Queen",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Diamonds",
-            Suit = "King",
-            Value = 10
-          },
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "Ace",
-            Value = 11
-          },
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "2",
-            Value = 2
-          },
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "3",
-            Value = 3
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "4",
-            Value = 4
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "5",
-            Value = 5
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "6",
-            Value = 6
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "7",
-            Value = 7
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "8",
-            Value = 8
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "9",
-            Value = 9
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "10",
-            Value = 10
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "Jack",
-            Value = 10
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "Queen",
-            Value = 10
-          },  
-
-        new Card()
-          {
-            Face = "Hearts",
-            Suit = "King",
-            Value =10
-          },
-        
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "Ace",
-            Value = 11
-          },
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "2",
-            Value = 2
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "3",
-            Value = 3
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "4",
-            Value = 4
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "5",
-            Value = 5
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "6",
-            Value = 6
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "7",
-            Value = 7
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "8",
-            Value = 8
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "9",
-            Value = 9
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "10",
-            Value = 10
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "Jack",
-            Value = 10
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "Queen",
-            Value = 10
-          }, 
-
-        new Card()
-          {
-            Face = "Spades",
-            Suit = "King",
-            Value = 10
-          }, 
-         
-                            
-      };
+              var newCard = new Card();
+              newCard.Name = $"{currentRank} of {currentSuit}";
+              newCard.Suit = currentSuit;
+              newCard.Face = currentRank;
+              newCard.Value = value[index];
+              deck.Add(newCard);
+              index++;
+          }
+      }
 
       //Establishes loop that will shuffle deck
       for(var rightIndex = deck.Count - 1; rightIndex >=1; rightIndex--) 
@@ -492,24 +118,24 @@ namespace BlackJackCS
         deck.RemoveAt(0);
       }
       //Repeat process with dealer
-       for (var count = 0; count < 2; count ++)
+      for (var count = 0; count < 2; count ++)
       {
         dealerHand.Add(deck[0]);
         deck.RemoveAt(0);
       }
 
       var dealerCard = dealerHand[0];
-      Console.WriteLine($"Dealer has a {dealerCard.Suit} of {dealerCard.Face} as one of their cards.");
+      Console.WriteLine($"Dealer has a {dealerCard.Name} as one of their cards.");
 
       //New line of code that will prompt the user if they want to split
       var firstCard = deck[0];
       var secondCard = deck[1];
       if(firstCard.Suit == secondCard.Suit)
       {
-        Console.WriteLine($"Looks like you have two cards of the same suit! A {firstCard.Suit} of {firstCard.Face} and a {secondCard.Suit} of {secondCard.Face}. Would you like to split your hand? (Enter YES or NO)");
+        Console.WriteLine($"Looks like you have two cards of the same suit! A {firstCard.Name} and a {secondCard.Name}. Would you like to split your hand? (Enter Y or N)");
         var response = Console.ReadLine();
 
-        if (response.ToUpper() == "YES")
+        if (response.ToUpper() == "Y")
         {
           //Adds first card from hand into splitHand and deletes the same card
           splitHand.Add(playerHand[0]);
@@ -534,26 +160,16 @@ namespace BlackJackCS
       while (playSplitHand == true)
       {
         //Displays all cards in deck and tells you their total value at the end
-        Console.Write("Your split hand currently has the");
-        for(var count = 0; count <= splitHand.Count() - 1; count ++)
-        {
-          var currentHand = splitHand[count];
+        Console.WriteLine("Your split hand currently has: ");
 
-          //LOOK INTO JOIN FUNCTION ON STRINGS
-          if (count < splitHand.Count() -1)
-          {
-          Console.Write($" {currentHand.Suit} of {currentHand.Face},");
-          }
-          else if (count == splitHand.Count() -1)
-          {
-            Console.Write($" and {currentHand.Suit} of {currentHand.Face}");
-          }
+        foreach(var card in splitHand)
+        {
+          Console.Write($" {card.Name} ");
         }
-        Console.WriteLine(" in your hand.");
         
         var newPlayerTotal = splitHand.Select(sum => sum.Value).Sum();
         //Code here to turns an Ace into a 1 if it reaches over a total value of 21
-       var activeAces = splitHand.Any(ace => ace.Suit == "Ace" && ace.Value == 11);
+        var activeAces = splitHand.Any(ace => ace.Suit == "Ace" && ace.Value == 11);
         if (newPlayerTotal > 21 && activeAces == true)
         {
           //Goes through the list and turns the first Ace into a 1 if value goes over 21, will change the following Aces if the value keeps going up
@@ -561,24 +177,21 @@ namespace BlackJackCS
           foundAces.Value = 1;
           newPlayerTotal = splitHand.Select(sum => sum.Value).Sum();
         }
-        Console.WriteLine($"Your total value is {newPlayerTotal}.");
-        Console.WriteLine();
+        Console.WriteLine($"Your total value is {newPlayerTotal}. \n");
        
        //Begins prompting the user if they want to hit or stand and adjusts accordingly 
         if (newPlayerTotal < 21)
         {
-          Console.WriteLine("Would you like to HIT or STAND?");
+          Console.WriteLine("Would you like to \n(H)it \n(S)tand?");
           var response = Console.ReadLine();
 
-          if (response.ToUpper() == "HIT")
+          if (response.ToUpper() == "H")
           {
             splitHand.Add(deck[0]);
             deck.RemoveAt(0);
-
-            var newCard = splitHand[splitHand.Count - 1];
-            Console.WriteLine($"You drew a {newCard.Face} of {newCard.Suit}.");
+            Console.WriteLine($"You drew a {splitHand[splitHand.Count - 1].Name}.");
           }
-          else if(response.ToUpper() == "STAND")
+          else if(response.ToUpper() == "S")
           {
             Console.WriteLine($"Your total value was {newPlayerTotal}! Let's move on to your other hand.");
             Console.WriteLine();
@@ -592,15 +205,12 @@ namespace BlackJackCS
         //Changes output once total reaches 21 or over
         else if (newPlayerTotal == 21)
         {
-          Console.WriteLine("Congrats on the perfect 21! Let's see what your other hand has.");
-          Console.WriteLine();
+          Console.WriteLine("Congrats on the perfect 21! Let's see what your other hand has. \n");
           playSplitHand = false; 
         }
         else if(newPlayerTotal > 21)
         {
-          Console.Write("💣💣💣");
-          Console.WriteLine(" Uh oh, looks like a bust! Lets hope your other hand has better luck!");
-          Console.WriteLine();
+          Console.Write("💣💣💣 \nUh oh, looks like a bust! Lets hope your other hand has better luck! \n");
           playSplitHand = false; 
         }
         else
@@ -614,21 +224,12 @@ namespace BlackJackCS
       while (endTurn == false)
       {
         //Displays all cards in deck and tells you their total value at the end
-        Console.Write("You currently have the");
-        for(var count = 0; count <= playerHand.Count() - 1; count ++)
-        {
-          var currentHand = playerHand[count];
+        Console.WriteLine("Your hand currently has: ");
 
-          if (count < playerHand.Count() -1)
-          {
-          Console.Write($" {currentHand.Suit} of {currentHand.Face},");
-          }
-          else if (count == playerHand.Count() -1)
-          {
-            Console.Write($" and {currentHand.Suit} of {currentHand.Face}");
-          }
+        foreach(var card in playerHand)
+        {
+          Console.WriteLine($" {card.Name} ");
         }
-        Console.WriteLine(" in your hand.");
         
         var newPlayerTotal = playerHand.Select(sum => sum.Value).Sum();
         //Code here to turns an Ace into a 1 if it reaches over a total value of 21, only activates if there is an Ace in the deck
@@ -640,27 +241,24 @@ namespace BlackJackCS
           foundAces.Value = 1;
           newPlayerTotal = playerHand.Select(sum => sum.Value).Sum();
         } 
-        Console.WriteLine($"Your total value is {newPlayerTotal}.");
-        Console.WriteLine();
+        Console.WriteLine($"Your total value is {newPlayerTotal}. \n");
        
        //Begins prompting the user if they want to hit or stand and adjusts accordingly 
         if (newPlayerTotal < 21)
         {
-          Console.WriteLine("Would you like to HIT or STAND?");
+          Console.WriteLine("Would you like to \n(H)it \n(S)tand?");
           var response = Console.ReadLine();
 
-          if (response.ToUpper() == "HIT")
+          if (response.ToUpper() == "H")
           {
             playerHand.Add(deck[0]);
             deck.RemoveAt(0);
 
-            var newCard = playerHand[playerHand.Count - 1];
-            Console.WriteLine($"You drew a {newCard.Face} of {newCard.Suit}.");
+            Console.WriteLine($"You drew a {playerHand[playerHand.Count - 1].Name} ");
           }
-          else if(response.ToUpper() == "STAND")
+          else if(response.ToUpper() == "S")
           {
-            Console.WriteLine($"Your total value was {newPlayerTotal}! Let's see what the dealer has.");
-            Console.WriteLine();
+            Console.WriteLine($"Your total value was {newPlayerTotal}! Let's see what the dealer has. \n");
             endTurn = true; 
           }
           else
@@ -671,15 +269,12 @@ namespace BlackJackCS
         //Changes output once total reaches 21 or over
         else if (newPlayerTotal == 21)
         {
-          Console.WriteLine("Congrats on the perfect 21! Let's see what the dealer has.");
-          Console.WriteLine();
+          Console.WriteLine("Congrats on the perfect 21! Let's see what the dealer has. \n");
           endTurn = true; 
         }
         else if(newPlayerTotal > 21)
         {
-          Console.Write("💣💣💣");
-          Console.WriteLine(" Uh oh, looks like a bust!");
-          Console.WriteLine();
+          Console.Write("💣💣💣 \n Uh oh, looks like a bust! \n");
           endTurn = true; 
         }
         else
@@ -704,52 +299,35 @@ namespace BlackJackCS
         }
 
         //Code to display all of the dealer's current cards
-        Console.Write("The dealer currently has the");
-        for(var count = 0; count <= dealerHand.Count() - 1; count ++)
+        Console.WriteLine("The dealer's hand currently has: ");
+        foreach(var card in dealerHand)
         {
-          var currentHand = dealerHand[count];
-
-          if (count < dealerHand.Count() -1)
-          {
-          Console.Write($" {currentHand.Suit} of {currentHand.Face},");
-          }
-          else if (count == dealerHand.Count() -1)
-          {
-            Console.Write($" and {currentHand.Suit} of {currentHand.Face}");
-          }
+          Console.WriteLine($" {card.Name} ");
         }
-        Console.WriteLine(" in their hand.");
 
-        Console.WriteLine($"The dealer currently has a value of {newDealerTotal}.");
-        Console.WriteLine();
+        Console.WriteLine($"The dealer currently has a value of {newDealerTotal}. \n");
 
         //Code that automatically does the dealer's turn based on certain requirements.
         if (newDealerTotal >= 17 && newDealerTotal < 21)
         {
-          Console.WriteLine("Dealer chooses to stand.");
-          Console.WriteLine();
+          Console.WriteLine("Dealer chooses to stand. \n");
           dealerTurn = false;
         }
         else if (newDealerTotal == 21)
         {
-          Console.WriteLine("What terrible luck for you.");
-          Console.WriteLine();
+          Console.WriteLine("What terrible luck for you. \n");
           dealerTurn = false;
         }
         else if (newDealerTotal > 21)
         {
-          Console.Write("💣💣💣");
-          Console.WriteLine(" Uh oh, looks like a bust for the dealer!");
-          Console.WriteLine();
+          Console.Write("💣💣💣 \n Uh oh, looks like a bust for the dealer! \n");
           dealerTurn = false;
         }
         else 
         {
           dealerHand.Add(deck[0]);
           deck.RemoveAt(0);
-
-          var newCard = dealerHand[dealerHand.Count - 1];
-          Console.WriteLine($"Dealer chooses to hit, adding a {newCard.Suit} of {newCard.Face} to their hand.");
+          Console.WriteLine($"Dealer chooses to hit, adding a {dealerHand[dealerHand.Count - 1].Name} to their hand.");
         }
       }
 
@@ -763,9 +341,7 @@ namespace BlackJackCS
     }
     static void Main(string[] args)
     {
-      Console.WriteLine();
-      Console.WriteLine("Welcome to the game of Blackjack! I will be your dealer. Lets shuffle the cards and begin!");
-      Console.WriteLine();
+      Console.WriteLine("\nWelcome to the game of Blackjack! I will be your dealer. Lets shuffle the cards and begin! \n");
     
       BlackJack();
 
@@ -773,14 +349,14 @@ namespace BlackJackCS
       while (playAgain == true)
       {
         //Once game finishes, this is block of code that asks user if they would like to replay and adjusts accordingly.
-        Console.WriteLine("Would you like to play again? Enter YES to restart or NO to quit.");
+        Console.WriteLine("Would you like to play again? Enter (Y) to restart or (N) to quit.");
         var response = Console.ReadLine();
 
-        if (response.ToUpper() == "YES")
+        if (response.ToUpper() == "Y")
         {
           BlackJack();
         }
-        else if (response.ToUpper() == "NO")
+        else if (response.ToUpper() == "N")
         {
           Console.Write("It was fun to play with you! Come back anytime! 😃");
           playAgain = false;
@@ -790,7 +366,6 @@ namespace BlackJackCS
           Console.WriteLine("I'm sorry, I do not understand 😔 Please Try again.");
         }
       }
-
     }
   }
 }
